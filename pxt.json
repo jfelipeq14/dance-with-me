@@ -1,5 +1,6 @@
 {
     "name": "Dance with me",
+    "version": "1.0.0",
     "description": "",
     "dependencies": {
         "device": "*"

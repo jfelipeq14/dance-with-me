@@ -11,8 +11,8 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     note = 2
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
-    sprites.destroy(otherSprite, effects.spray, 5)
-    music.setVolume(100)
+    sprites.destroy(otherSprite, effects.spray, 100)
+    music.setVolume(105)
     info.changeScoreBy(1)
     note2 = randint(0, 10)
     if (note == 1) {
@@ -46,15 +46,15 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     note = 4
 })
 info.onLifeZero(function () {
-    if (note <= 0) {
-        game.gameOver(false)
-    } else if (note > 0) {
+    if (info.score() > 0) {
         game.gameOver(true)
+    } else {
+        game.gameOver(false)
     }
     music.stopAllSounds()
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
-    sprites.destroy(sprite, effects.fire, 5)
+    sprites.destroy(sprite, effects.fire, 2)
     info.changeLifeBy(-1)
     music.play(music.melodyPlayable(music.powerDown), music.PlaybackMode.UntilDone)
 })

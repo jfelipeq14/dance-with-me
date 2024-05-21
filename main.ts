@@ -11,7 +11,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     note = 2
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
-    sprites.destroy(otherSprite, effects.spray, 100)
+    sprites.destroy(otherSprite, effects.spray, 5)
     music.setVolume(100)
     info.changeScoreBy(1)
     note2 = randint(0, 10)
@@ -46,11 +46,15 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     note = 4
 })
 info.onLifeZero(function () {
-    game.gameOver(false)
+    if (note <= 0) {
+        game.gameOver(false)
+    } else if (note > 0) {
+        game.gameOver(true)
+    }
     music.stopAllSounds()
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
-    sprites.destroy(sprite, effects.fire, 100)
+    sprites.destroy(sprite, effects.fire, 5)
     info.changeLifeBy(-1)
     music.play(music.melodyPlayable(music.powerDown), music.PlaybackMode.UntilDone)
 })
@@ -131,7 +135,7 @@ game.onUpdateInterval(500, function () {
             `, SpriteKind.Projectile)
         right.setVelocity(0, speed)
         right.setPosition(130, 8)
-    } else if (false) {
+    } else if (lane == 3) {
         up = sprites.create(img`
             . . . . . . . 6 . . . . . . . . 
             . . . . . . 6 6 6 . . . . . . . 
